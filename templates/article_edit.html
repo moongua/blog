@@ -1,8 +1,10 @@
-<link rel="stylesheet" href="/static/js/lib/editor.md/css/editormd.min.css" />
 
 {% extends "layout.html" %}
 {% block title %}
     {{ article.title }}
+{% endblock %}
+{% block local_css %}
+    <link rel="stylesheet" href="/static/js/lib/editor.md/css/editormd.min.css" />
 {% endblock %}
 {% block main %}
     <div class="editor-container">
