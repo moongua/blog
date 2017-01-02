@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+</head>
+<body>
+    <div class="login">
+        <div>
+            <input type="text" placeholder="用户名" id="login_name-input">
+            <input type="password" placeholder="密码" id="password">
+            <button onclick="login()">登录</button>
+        </div>
+    </div>
+</body>
+<script src="/static/js/lib/jquery-3.1.1.min.js"></script>
+<script>
+    function login() {
+        $.ajax({
+            type: 'post',
+            url: '/user/api/login',
+            data: JSON.stringify({
+                login_name: $('#login_name-input').val(),
+                password: $('#password').val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            "dataType" : "json",
+            success: function(response) {
+                if(response.status == 'OK') {
+                    window.location.href='/article/list'
+                }
+                else {
+                    error("操作失败" + response.message);
+                }
+            }
+        });
+
+    }
+</script>
+</html>

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+{% block left %}
+
+    <div class="waterfall">
+{#        <div class="article-title">{{ article.title }}</div>#}
+{#        <div class="article-meta"><span>{{ article.author }}创建于{{ article.ctime }}</span><span>浏览{{ article.pv }}次</span></div>#}
+{#        <div class="article-content">{{ article.html|safe }}</div>#}
+    </div>
+{% endblock %}
+{% block local_script %}
+    <script src="/static/js/home.js?v={{ file_hash }}"></script>
+{% endblock %}

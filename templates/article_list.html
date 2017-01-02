@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}
+    文章列表
+{% endblock %}
+{% block main %}
+{#    <h3>文章列表</h3>#}
+    <div class="archive">
+        <div class="title">文章列表</div>
+
+        <ul class="article-list">
+    {#        {% for article in articles %}#}
+    {#        <li ><a href="/article/detail/{{ article.id }}">{{ article.title }}</a></li>#}
+    {#        {% endfor %}#}
+        </ul>
+    </div>
+{% endblock %}
+{% block local_script %}
+    <script src="/static/js/article_list.js?v={{ file_hash }}"></script>
+{% endblock %}

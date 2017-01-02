@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css?v={{ file_hash }}" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/js/lib/normalize/normalize.css?v={{ file_hash }}" />
+    {% block local_css %}
+    {% endblock %}
+</head>
+<body>
+    <div class="top-nav">
+{#            <div class="avator">#}
+{#                <a href="/login">登录</a>#}
+{#            </div>#}
+        <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="/article/list">文章列表</a></li>
+        </ul>
+{#        <div><a href="/login">登录</a></div>#}
+        <div class="search">
+            <input type="text">
+            <button class="btn"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+    <div class="main">
+        {% block main %}
+            <div class="left">
+                {% block left %}
+                {%endblock%}
+            </div>
+            <div class="right">
+                {% block right %}
+                {%endblock%}
+            </div>
+        {% endblock %}
+    </div>
+    {% block footer %}
+{#        <div class="footer">#}
+{#            &copy; Copyright 2016<a href=""></a>#}
+{#        </div>#}
+    {% endblock %}
+</body>
+    <script src="/static/js/global.js"></script>
+    <script src="/static/js/lib/jquery-3.1.1.min.js"></script>
+    {% block local_script %}
+    {% endblock %}
+</html>

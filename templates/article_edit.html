@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/static/js/lib/editor.md/css/editormd.min.css" />
+
+{% extends "layout.html" %}
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+{% block main %}
+    <div class="editor-container">
+        <div class="title">
+            <span>标题</span><input type="text" id="title-input">
+        </div>
+        <div id="editor">
+        </div>
+        <div class="operate-list">
+            <button class="btn submit-edit-btn">提交</button>
+            <button class="btn save-edit-btn">保存草稿</button>
+        </div>
+    </div>
+{% endblock %}
+{% block local_script %}
+    <script>
+        var article_id = '{{ article.id }}';
+    </script>
+    <script src="/static/js/lib/editor.md/editormd.js"></script>
+    <script src="/static/js/article_edit.js?v={{ file_hash }}"></script>
+{% endblock %}
