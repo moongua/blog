@@ -13,6 +13,7 @@ app.debug = True
 app.secret_key = "super secret key"
 
 conn = MySQLdb.connect(host='127.0.0.1', port=3306, user='root', passwd='123', db='blog', charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
+conn.autocommit(True)
 conn.ping(True)
 
 class BizException(Exception):
