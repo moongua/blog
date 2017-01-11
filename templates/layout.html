@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>测试</title>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
     <link rel="stylesheet" type="text/css" href="/static/css/common.css?v={{ file_hash }}" />
     <link rel="stylesheet" type="text/css" href="/static/css/lib/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/js/lib/normalize/normalize.css?v={{ file_hash }}" />
@@ -17,6 +20,7 @@
         <ul>
             <li><a href="/">首页</a></li>
             <li><a href="/article/list">文章列表</a></li>
+            <li><a href="/tool/list">常用工具</a></li>
         </ul>
 {#        <div><a href="/login">登录</a></div>#}
         <div class="search">

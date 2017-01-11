@@ -48,7 +48,16 @@ html, body { height: 100%; }
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     padding: 20px;
 }
-#view, .article {
+
+.tool {
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    padding: 20px;
+}
+
+
+
+#view, .article, .tool-list, .tool {
     background: #fcfcfa;
 }
 
@@ -185,7 +194,7 @@ html, body { height: 100%; }
     align-items: center;
 }
 
-.archive {
+.archive, .tool-list {
     background: #fcfcfa;
     width: 80%;
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
@@ -193,9 +202,14 @@ html, body { height: 100%; }
 }
 
 .archive .title {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 1px dashed #ccc;
+}
+
+.tool .tool-title {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .archive .category-title {
@@ -237,16 +251,16 @@ html, body { height: 100%; }
     width: 90%;
 }
 
-.editor-container .title input, .editor-container .title span, .article .article-title, .archive .title{
+.editor-container .title input, .editor-container .title span, .article .article-title, .archive .title, .tool .tool-title {
     font-size: 1.3em;
     font-weight: 500;
     line-height: 150%;
     vertical-align: center;
-    margin: 0px 0px 10px 0px;
+    /*margin: 0px 0px 10px 0px;*/
     padding: 0px;
 }
 
-.article .article-title, .archive .title {
+.article .article-title, .archive .title, .tool .tool-title {
     word-break: break-all;
 }
 
@@ -283,8 +297,64 @@ html, body { height: 100%; }
     position: relative;
     text-align: center;
     text-shadow: none;
+    outline: none;
 }
 
 #view {
     width: auto;
 }
+
+.tool-list {
+    display: flex;
+    display: -webkit-flex;
+    align-content: center;
+}
+
+.tool-list>ul>li {
+    background: #f7faf9;
+    border-bottom: 0px solid #f7faf9;
+    border-radius: 0 0 1px 1px;
+    float: left;
+    margin: 5px 10px 15px;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    box-shadow: 0 1px 2px #c5c5c5;
+    list-style: none;
+}
+
+.tool-entry {
+    background: #eee;
+    width: 100%;
+    height: 100%;
+}
+.tool-entry-img {
+    height: 80%;
+}
+.tool-entry-title {
+    height: auto;
+    text-align: center;
+}
+.tool-entry-title>a {
+    text-decoration: none;
+}
+
+textarea {
+    width: 100%;
+    line-height: 30px;
+    font-size: 14px;
+    border: 1px solid #c6cede;
+    overflow: auto;
+    outline: none;
+    resize: none;
+}
+
+textarea.url-endec {
+}
+
+
+.trans-btn-list {
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+

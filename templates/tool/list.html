@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}
+    后端工具
+{% endblock %}
+{% block main %}
+    <div class="tool-list">
+        <ul>
+            <li>
+                <div class="tool-entry">
+                    <div class="tool-entry-img">
+                    </div>
+                    <div class="tool-entry-title"><a href="/tool/url_endec">url编解码工具</a></div>
+                </div>
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block local_script %}
+    <script src="/static/js/article_list.js?v={{ file_hash }}"></script>
+{% endblock %}

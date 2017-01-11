@@ -1,54 +1,31 @@
 #coding:utf-8
 import sys
-from flask import Flask, request, session, g, redirect, url_for, abort,render_template, flash,jsonify
+from flask import Flask, request, session, g, redirect, url_for, abort,render_template, flash,jsonify, Blueprint
 import MySQLdb.cursors
 import markdown,hashlib,time,functools
+from views.tool import tool
+import ConfigParser
+from common.exception import BizException
+from common.result import success,exception
 
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
+config = ConfigParser.ConfigParser()
+config.read('settings.conf')
+print
+
 app = Flask(__name__)
+app.register_blueprint(tool)
 app.debug = True
 app.secret_key = "super secret key"
 
-conn = MySQLdb.connect(host='127.0.0.1', port=3306, user='root', passwd='123', db='blog', charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
+
+conn = MySQLdb.connect(host=config.get('db', 'db_host'), port=int(config.get('db', 'db_port')), user=config.get('db', 'db_user'), passwd=config.get('db', 'db_password'), db='blog', charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
 conn.autocommit(True)
 conn.ping(True)
-
-class BizException(Exception):
-        def __init__(self, msg):
-            super(BizException, self).__init__(msg)
-
-
-def success(data):
-    return jsonify({
-        'status': 'OK',
-        'msg': '',
-        'data': data
-    })
-
-
-def exception(arg):
-    if isinstance(arg, basestring): #compatible with unicode
-        return jsonify({
-            'status': 'ERROR',
-            'msg': arg,
-            'data': None
-        })
-    if isinstance(arg, BizException):
-        return jsonify({
-            'status': 'BIZ_ERROR',
-            'msg': arg.message,
-            'data': None
-        })
-    if isinstance(arg, Exception):
-        return jsonify({
-            'status': 'ERROR',
-            'msg': arg.message,
-            'data': None
-        })
-
 
 def require_login(func):
     @functools.wraps(func)
@@ -126,6 +103,7 @@ def api_get_article_list():
         left join tbl_user t2
         on t1.cid = t2.id
         %s
+        order by ctime desc
         limit %d,%d
         ''' % (where_cond, start, length)
         cursor.execute(sql)

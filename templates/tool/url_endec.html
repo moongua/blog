@@ -1,25 +1,28 @@
 
 {% extends "layout.html" %}
 {% block title %}
-    {{ article.title }}
+    url编解码工具
 {% endblock %}
 {% block local_css %}
     <link rel="stylesheet" href="/static/js/lib/editor.md/css/editormd.preview.min.css" />
 {% endblock %}
 {% block left %}
-    <div class="article">
-        <div class="article-title">{{ article.title }}</div>
-        <div class="article-meta"><span>{{ article.author }}创建于{{ article.ctime }}</span><span>浏览{{ article.pv }}次</span></div>
-        <div class="article-content">
-            <div id="view"></div>
+    <div class="tool">
+        <div class="tool-title">
+            url编解码
         </div>
+        <textarea rows="13" cols="20" placeholder="输入待转换内容" id="input-textarea"></textarea>
+        <div class="trans-btn-list">
+            <button class="btn decode-btn">解码</button>
+            <button class="btn encode-btn">编码</button>
+        </div>
+        <textarea rows="13" cols="20" style="width:100%;" id="output-textarea"></textarea>
     </div>
-    <div id="markdown-content" style="display:none">{{ article.content }}</div>
 {% endblock %}
 {% block local_script %}
     <script src="/static/js/lib/editor.md/lib/flowchart.min.js"></script>
     <script src="/static/js/lib/editor.md/lib/marked.min.js"></script>
     <script src="/static/js/lib/editor.md/lib/prettify.min.js"></script>
     <script src="/static/js/lib/editor.md/editormd.js"></script>
-    <script src="/static/js/article_detail.js?v={{ file_hash }}"></script>
+    <script src="/static/js/tool/url_endec.js?v={{ file_hash }}"></script>
 {% endblock %}
