@@ -1,6 +1,6 @@
 from exception import BizException
 from flask import jsonify
-def success(data):
+def success(data=None):
     return jsonify({
         'status': 'OK',
         'msg': '',

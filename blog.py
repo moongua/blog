@@ -43,11 +43,26 @@ def require_login(func):
 def inject_file_hash():
     return dict(file_hash=hashlib.md5(str(time.time())).hexdigest())
 
+@app.context_processor
+def is_login():
+    d = {}
+    if 'user' in session and session['user'] is not None:
+        return dict(is_login=True, name_abbr=session['user']['real_name'][-2:])
+    return dict(is_login=False)
+
 
 @app.route('/login')
 def render_login():
     return render_template("login.html")
 
+
+@app.route('/api/logout', methods=['GET','POST'])
+def api_logout():
+    try:
+        session.clear()
+        return success()
+    except Exception as e:
+        return exception(e)
 
 @app.route('/')
 def render_home():
@@ -88,15 +103,13 @@ def render_article_list():
     return render_template('article_list.html')
 
 
-@app.route('/article/api/get_article_list', methods=['GET','POST'])
-def api_get_article_list():
+@app.route('/article/api/get_home_article_list', methods=['GET','POST'])
+def api_get_home_article_list():
     try:
         start = request.json['start']
         length = request.json['length']
         cursor = conn.cursor()
         where_cond = 'where stat = 0'
-        if 'user' in session and session['user'] is not None:
-            where_cond = ''
         sql = '''
         select t1.*,t2.real_name as author
         from tbl_article t1
@@ -110,11 +123,40 @@ def api_get_article_list():
         article_list = cursor.fetchall()
         for article in article_list:
             article['ctime'] = article['ctime'].strftime('%y/%m/%d')
-
         return success(article_list)
     except Exception as e:
         return exception(e)
 
+
+@app.route('/article/api/get_article_list', methods=['GET','POST'])
+def api_get_article_list():
+    try:
+        start = request.json['start']
+        length = request.json['length']
+        cursor = conn.cursor()
+        where_cond = 'where stat = 0'
+        if 'user' in session and session['user'] is not None:
+            where_cond = 'where t1.stat = 0 or (t1.stat = 1 and t1.cid = %d)' % session['user']['id']
+        sql = '''
+        select t1.*,t2.real_name as author
+        from tbl_article t1
+        left join tbl_user t2
+        on t1.cid = t2.id
+        %s
+        order by ctime desc
+        limit %d,%d
+        ''' % (where_cond, start, length)
+        cursor.execute(sql)
+        article_list = cursor.fetchall()
+        for article in article_list:
+            article['ctime'] = article['ctime'].strftime('%y/%m/%d')
+            if 'user' in session and session['user'] is not None and article['cid'] == session['user']['id']:
+                article['ip2Edit'] = True
+            else:
+                article['ip2Edit'] = False
+        return success(article_list)
+    except Exception as e:
+        return exception(e)
 
 
 @app.route('/article/edit/<int:article_id>')

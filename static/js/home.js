@@ -39,7 +39,6 @@ function getArticleList(start, length) {
                                     '<div class="article-content">{{ html }}</div>' +
                                     '<a class="view-" href="/article/detail/{{ id }}">阅读全文</a>' +
                                 '</div>' +
-
                             '</div>';
                     response.data.map(function(e) {
                         if(e.pv == null || e.pv == undefined) {
@@ -49,7 +48,7 @@ function getArticleList(start, length) {
                             .replace(/\{\{ title \}\}/g, e.title)
                             .replace(/\{\{ id \}\}/g, e.id)
                             .replace(/\{\{ pv \}\}/g, e.pv)
-                            .replace(/\{\{ stat \}\}/g, e.stat == '1' ? '草稿':'')
+                            .replace(/\{\{ stat \}\}/g, e.stat == '1' ? '<div>草稿(仅自己可见）</div>':'')
                             .replace(/\{\{ author \}\}/g, e.author)
                             .replace(/\{\{ html \}\}/g, e.html)
                         $('.waterfall').append(articleInfo);
