@@ -165,7 +165,10 @@ def render_article_edit(article_id):
     cursor = conn.cursor()
     cursor.execute("select * from tbl_article where id = %s" % article_id)
     article = cursor.fetchone()
-    return render_template("article_edit.html", article=article)
+    if article['cid'] == session['user']['id']:
+        return render_template("article_edit.html", article=article)
+    else:
+        return render_template("error.html", msg="无权限操作！！！")
 
 
 @app.route('/article/api/get_article', methods=['GET', 'POST'])
