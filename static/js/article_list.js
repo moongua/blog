@@ -35,6 +35,7 @@ function getArticleList(start, length) {
                         '<li>' +
                             '<span class="ctime">{{ ctime }}</span>' +
                             '<span><a href="/article/detail/{{ id }}">{{ title }}</a></span>' +
+                            '<span class="pv">by {{ author }}</span>' +
                             '<span class="pv">浏览{{ pv }}次</span>' +
                             '<span class="stat">{{ stat }}</span>' +
                             '<span class="stat">{{ edit }}</span>' +
@@ -47,6 +48,7 @@ function getArticleList(start, length) {
                             .replace(/\{\{ title \}\}/g, e.title)
                             .replace(/\{\{ id \}\}/g, e.id)
                             .replace(/\{\{ pv \}\}/g, e.pv)
+                            .replace(/\{\{ author \}\}/g, e.author)
                             .replace(/\{\{ stat \}\}/g, e.stat == '1' ? '<div class="editing">草稿(仅自己可见）</div>':'')
                             .replace(/\{\{ edit \}\}/g, e.ip2Edit == true ? '<a class="fa fa-edit sm-btn-success" href="/article/edit/' + e.id + '"></a>':'')
                         $('.article-list').append(articleInfo);
