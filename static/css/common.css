@@ -309,6 +309,10 @@ html, body { height: 100%; }
     word-break: break-all;
 }
 
+.archive .title a {
+    text-decoration: none;
+    margin-left: 20px;
+}
 .editor-container .title input {
     width: 100%;
 }

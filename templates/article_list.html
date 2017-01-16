@@ -5,7 +5,13 @@
 {% block main %}
 {#    <h3>文章列表</h3>#}
     <div class="archive">
-        <div class="title">文章列表</div>
+        <div class="title">
+            <span>文章列表</span>
+            {% if is_login %}
+                <a class="fa fa-edit" href="/article/new"></a>
+            {% endif %}
+
+        </div>
 
         <ul class="article-list">
     {#        {% for article in articles %}#}

@@ -15,7 +15,6 @@ sys.setdefaultencoding('utf-8')
 
 config = ConfigParser.ConfigParser()
 config.read('settings.conf')
-print
 
 app = Flask(__name__)
 app.register_blueprint(tool)
